@@ -1,0 +1,29 @@
+recording:
+  source: "rtsp://admin:abc123456@10.20.30.23" 
+  chunk_duration_seconds: 3600         # 5-minute chunks (12 chunks in 1 hour)
+  output_dir: "data/recordings"      
+  min_free_disk_gb: 10               
+  delete_after_upload: false         
+  log_file: "data/cv_recording.log"  # Logs inside your project folder
+
+scheduling:
+  one_time_job: true                 # True matlab ye specific date ke liye hai
+  target_date: "2026-06-01"          # Aj raat 12 baje ke baad ki date (1st June)
+  start_hour: 1                      # 1:00 AM
+  end_hour: 2                        # 2:00 AM (Is hour pe script block ho jayega)
+
+gcp_simulation:
+  mode: "local_mock"                 
+  mock_bucket_dir: "data/mock_gcs_bucket"
+  upload_prefix: "raw_videos/"
+  local_download_dir: "data/downloaded"
+
+client:
+  name: "office_internal_test"
+  use_case: "safety_and_attribute_monitoring"
+  detection:
+    target_classes: ["person", "helmet", "vest"]
+  classification:
+    person_attributes: ["gender", "backpack", "clothing_color"]
+    ppe_compliance: ["hard_hat_on", "no_vest"]
+    employee_classification: ["authorized_staff", "visitor", "unknown"]
